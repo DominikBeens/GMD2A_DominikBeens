@@ -5,9 +5,16 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
 
+    private PlayerController playerScript;
+
     public List<InventorySlot> shopSlots = new List<InventorySlot>();
 
     public static InventorySlot selectedSlot;
+
+    private void Awake()
+    {
+        playerScript = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
 
     private void Update()
     {
@@ -15,7 +22,7 @@ public class Shop : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIManager.instance.inventoryPanels.SetActive(false);
+                CloseShopButton();
             }
         }
     }
@@ -42,6 +49,7 @@ public class Shop : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 UIManager.instance.inventoryPanels.SetActive(true);
+                playerScript.enabled = false;
             }
         }
     }
@@ -49,5 +57,6 @@ public class Shop : MonoBehaviour
     public void CloseShopButton()
     {
         UIManager.instance.inventoryPanels.SetActive(false);
+        playerScript.enabled = true;
     }
 }

@@ -32,40 +32,32 @@ public class Inventory : MonoBehaviour
 
     public void SetWeapon(int i)
     {
-        if (weaponSlots[i].currentItem == null)
+        Item buffer = null;
+        if (weaponSlots[i].currentItem != null)
         {
-            weaponSlots[i].currentItem = selectedSlot.currentItem;
-            selectedSlot.currentItem = null;
+            buffer = weaponSlots[i].currentItem;
+            Destroy(playerWeaponContainers[i].transform.GetChild(0).gameObject);
+        }
 
-            GameObject weapon = Instantiate(weaponSlots[i].currentItem.gameObject, playerWeaponContainers[i].transform.position + weaponSlots[i].currentItem.gameObject.GetComponent<Gun>().basePositionOffset, Quaternion.identity, playerWeaponContainers[i].transform);
+        weaponSlots[i].currentItem = selectedSlot.currentItem;
+        selectedSlot.currentItem = null;
 
-            if (i == weaponSlotIndex)
-            {
-                weapon.SetActive(true);
-            }
-            else
-            {
-                weapon.SetActive(false);
-            }
+        GameObject weapon = Instantiate(weaponSlots[i].currentItem.gameObject,
+                                        playerWeaponContainers[i].transform.position + weaponSlots[i].currentItem.gameObject.GetComponent<Gun>().basePositionOffset,
+                                        Quaternion.identity, playerWeaponContainers[i].transform);
+
+        if (i == weaponSlotIndex)
+        {
+            weapon.SetActive(true);
         }
         else
         {
-            Item buffer = weaponSlots[i].currentItem;
-            Destroy(playerWeaponContainers[i].transform.GetChild(0).gameObject);
+            weapon.SetActive(false);
+        }
 
-            weaponSlots[0].currentItem = selectedSlot.currentItem;
-            selectedSlot.currentItem = buffer;
-
-            GameObject weapon = Instantiate(weaponSlots[i].currentItem.gameObject, playerWeaponContainers[i].transform.position + weaponSlots[i].currentItem.gameObject.GetComponent<Gun>().basePositionOffset, Quaternion.identity, playerWeaponContainers[i].transform);
-
-            if (i == weaponSlotIndex)
-            {
-                weapon.SetActive(true);
-            }
-            else
-            {
-                weapon.SetActive(false);
-            }
+        if (buffer != null)
+        {
+            AddToInventory(buffer);
         }
 
         selectedItemOptionsPanel.SetActive(false);

@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
         if (inventoryPanels.activeInHierarchy)
         {
             uiState = UIState.CanInteractWithUI;
+            //InventoryPanelsMovement();
         }
         else
         {
@@ -102,18 +103,40 @@ public class UIManager : MonoBehaviour
 
     private void AmmoTextMovement()
     {
-        float y = Mathf.Clamp(Input.GetAxis("Mouse X"), -maxHorizontalAmmoTextMovement, maxHorizontalAmmoTextMovement);
-        float x = Mathf.Clamp(Input.GetAxis("Mouse Y"), -maxVerticalAmmoTextMovement, maxVerticalAmmoTextMovement);
+        float y = Input.GetAxis("Mouse X");
+        float x = Input.GetAxis("Mouse Y");
 
-        Vector3 movementPosition = new Vector3(ammoText.transform.localPosition.x + y, ammoText.transform.localPosition.y + x, ammoText.transform.localPosition.z);
+        Vector2 movementPosition = new Vector2(ammoText.transform.localPosition.x + y, ammoText.transform.localPosition.y + x);
 
-        ammoText.transform.localPosition = Vector3.Lerp(ammoText.transform.localPosition, movementPosition, Time.deltaTime * ammoTextMovementSpeed);
+        ammoText.transform.localPosition = Vector2.Lerp(ammoText.transform.localPosition,
+                                                        new Vector2(Mathf.Clamp(movementPosition.x, ammoTextStartPosition.x - maxHorizontalAmmoTextMovement, ammoTextStartPosition.x + maxHorizontalAmmoTextMovement),
+                                                                    Mathf.Clamp(movementPosition.y, ammoTextStartPosition.y - maxVerticalAmmoTextMovement, ammoTextStartPosition.y + maxVerticalAmmoTextMovement)),
+                                                        Time.deltaTime * ammoTextMovementSpeed);
 
         if (Vector2.Distance(movementPosition, ammoText.transform.localPosition) < 0.1f)
         {
-            ammoText.transform.localPosition = Vector3.Lerp(ammoText.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammotTextFallbackMovementFallBackSpeed);
+            ammoText.transform.localPosition = Vector2.Lerp(ammoText.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammotTextFallbackMovementFallBackSpeed);
         }
     }
+
+    //private void InventoryPanelsMovement()
+    //{
+    //    float y = Input.GetAxis("Mouse X");
+    //    float x = Input.GetAxis("Mouse Y");
+
+    //    Vector2 movementPosition = new Vector2(inventoryPanels.transform.localPosition.x + y, inventoryPanels.transform.localPosition.y + x);
+
+    //    inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition,
+    //                                            new Vector2(Mathf.Clamp(movementPosition.x, ammoTextStartPosition.x - maxHorizontalAmmoTextMovement, ammoTextStartPosition.x + maxHorizontalAmmoTextMovement),
+    //                                                        Mathf.Clamp(movementPosition.y, ammoTextStartPosition.y - maxVerticalAmmoTextMovement, ammoTextStartPosition.y + maxVerticalAmmoTextMovement)),
+    //                                            Time.deltaTime * ammoTextMovementSpeed);
+
+    //    if (Vector2.Distance(movementPosition, ammoText.transform.localPosition) < 0.1f)
+    //    {
+    //        inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammotTextFallbackMovementFallBackSpeed);
+    //    }
+
+    //}
 
     public void NewNotification(string text, float startSize, float desiredSize, float maxSize, float growSpeed, Color color)
     {

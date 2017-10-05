@@ -17234,8 +17234,8 @@ MonoBehaviour:
   ammoText: {fileID: 1313322560}
   currentAmmoText: {fileID: 1517327621}
   maxAmmoText: {fileID: 970625424}
-  maxHorizontalAmmoTextMovement: 2
-  maxVerticalAmmoTextMovement: 2
+  maxHorizontalAmmoTextMovement: 15
+  maxVerticalAmmoTextMovement: 15
   ammoTextMovementSpeed: 20
   ammotTextFallbackMovementFallBackSpeed: 10
   notification: {fileID: 1943166154884788, guid: 504cf6d767eefe649a729a5b5d77886d,
