@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     private Vector3 ammoTextStartPosition;
     [Space(10)]
     public float ammoTextMovementSpeed;
-    public float ammotTextFallbackMovementFallBackSpeed;
+    public float ammoTextMovementFallBackSpeed;
 
     [Header("Notification")]
     public GameObject notification;
@@ -33,6 +33,13 @@ public class UIManager : MonoBehaviour
 
     [Header("Shop")]
     public GameObject inventoryPanels;
+    [Space(10)]
+    public float maxHorizontalInventoryPanelsMovement = 2f;
+    public float maxVerticalInventoryPanelsMovement = 2f;
+    private Vector3 inventoryPanelsStartPosition;
+    [Space(10)]
+    public float inventoryPanelsMovementSpeed;
+    public float inventoryPanelsMovementFallBackSpeed;
 
     [Header("Gun")]
     public Image fireRateFill;
@@ -55,6 +62,7 @@ public class UIManager : MonoBehaviour
         #endregion
 
         ammoTextStartPosition = ammoText.transform.localPosition;
+        inventoryPanelsStartPosition = inventoryPanels.transform.localPosition;
     }
 
     private void Update()
@@ -65,7 +73,7 @@ public class UIManager : MonoBehaviour
         if (inventoryPanels.activeInHierarchy)
         {
             uiState = UIState.CanInteractWithUI;
-            //InventoryPanelsMovement();
+            InventoryPanelsMovement();
         }
         else
         {
@@ -115,28 +123,27 @@ public class UIManager : MonoBehaviour
 
         if (Vector2.Distance(movementPosition, ammoText.transform.localPosition) < 0.1f)
         {
-            ammoText.transform.localPosition = Vector2.Lerp(ammoText.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammotTextFallbackMovementFallBackSpeed);
+            ammoText.transform.localPosition = Vector2.Lerp(ammoText.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammoTextMovementFallBackSpeed);
         }
     }
 
-    //private void InventoryPanelsMovement()
-    //{
-    //    float y = Input.GetAxis("Mouse X");
-    //    float x = Input.GetAxis("Mouse Y");
+    private void InventoryPanelsMovement()
+    {
+        float y = Input.GetAxis("Mouse X");
+        float x = Input.GetAxis("Mouse Y");
 
-    //    Vector2 movementPosition = new Vector2(inventoryPanels.transform.localPosition.x + y, inventoryPanels.transform.localPosition.y + x);
+        Vector2 movementPosition = new Vector2(inventoryPanels.transform.localPosition.x + y, inventoryPanels.transform.localPosition.y + x);
 
-    //    inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition,
-    //                                            new Vector2(Mathf.Clamp(movementPosition.x, ammoTextStartPosition.x - maxHorizontalAmmoTextMovement, ammoTextStartPosition.x + maxHorizontalAmmoTextMovement),
-    //                                                        Mathf.Clamp(movementPosition.y, ammoTextStartPosition.y - maxVerticalAmmoTextMovement, ammoTextStartPosition.y + maxVerticalAmmoTextMovement)),
-    //                                            Time.deltaTime * ammoTextMovementSpeed);
+        inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition,
+                                                               new Vector2(Mathf.Clamp(movementPosition.x, inventoryPanelsStartPosition.x - maxHorizontalInventoryPanelsMovement, inventoryPanelsStartPosition.x + maxHorizontalInventoryPanelsMovement),
+                                                                           Mathf.Clamp(movementPosition.y, inventoryPanelsStartPosition.y - maxVerticalInventoryPanelsMovement, inventoryPanelsStartPosition.y + maxVerticalInventoryPanelsMovement)),
+                                                               Time.deltaTime * inventoryPanelsMovementSpeed);
 
-    //    if (Vector2.Distance(movementPosition, ammoText.transform.localPosition) < 0.1f)
-    //    {
-    //        inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition, ammoTextStartPosition, Time.deltaTime * ammotTextFallbackMovementFallBackSpeed);
-    //    }
-
-    //}
+        if (Vector2.Distance(movementPosition, inventoryPanels.transform.localPosition) < 0.1f)
+        {
+            inventoryPanels.transform.localPosition = Vector2.Lerp(inventoryPanels.transform.localPosition, inventoryPanelsStartPosition, Time.deltaTime * inventoryPanelsMovementFallBackSpeed);
+        }
+    }
 
     public void NewNotification(string text, float startSize, float desiredSize, float maxSize, float growSpeed, Color color)
     {

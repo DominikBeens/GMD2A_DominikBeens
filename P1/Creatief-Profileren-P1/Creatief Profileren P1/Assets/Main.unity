@@ -17237,11 +17237,15 @@ MonoBehaviour:
   maxHorizontalAmmoTextMovement: 15
   maxVerticalAmmoTextMovement: 15
   ammoTextMovementSpeed: 20
-  ammotTextFallbackMovementFallBackSpeed: 10
+  ammoTextMovementFallBackSpeed: 10
   notification: {fileID: 1943166154884788, guid: 504cf6d767eefe649a729a5b5d77886d,
     type: 2}
   notificationSpawn: {fileID: 1508097205}
   inventoryPanels: {fileID: 40011435}
+  maxHorizontalInventoryPanelsMovement: 6
+  maxVerticalInventoryPanelsMovement: 6
+  inventoryPanelsMovementSpeed: 15
+  inventoryPanelsMovementFallBackSpeed: 5
   fireRateFill: {fileID: 148072664}
   altarHealth: {fileID: 1637822065}
   altarHealthFill: {fileID: 1709331014}
