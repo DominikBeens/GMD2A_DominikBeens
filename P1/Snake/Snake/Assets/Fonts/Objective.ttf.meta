@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: bec334975ab90d84697f6fe8e48d0229
+timeCreated: 1508225938
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Objective
+  fontNames:
+  - Objective
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3898c7a23c1ce8f488902c7afbda9751, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
