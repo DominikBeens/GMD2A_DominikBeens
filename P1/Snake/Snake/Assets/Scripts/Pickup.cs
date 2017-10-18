@@ -26,6 +26,11 @@ public class Pickup : MonoBehaviour
 
             PickupSpawner.instance.canSpawn = true;
 
+            if (UIManager.instance.difficultyDropdown.value == 3)
+            {
+                Camera.main.backgroundColor = Random.ColorHSV();
+            }
+
             if (pickupType == PickupType.Food)
             {
                 Snake.instance.AddBodyPart();

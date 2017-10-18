@@ -30,9 +30,19 @@ public class GameManager : MonoBehaviour
         PickupSpawner.instance.canSpawn = true;
     }
 
+    private void Update()
+    {
+        if (UIManager.instance.difficultyDropdown.value == 3)
+        {
+            arena.transform.RotateAround(arena.transform.position, Vector3.up, Time.deltaTime * (1 + (score * 0.1f)));
+        }
+    }
+
     public void PlayButton()
     {
         score = 0;
+
+        arena.transform.rotation = Quaternion.Euler(Vector3.zero);
 
         if (Snake.instance.snakeBodyParts.Count > 0)
         {
@@ -62,6 +72,9 @@ public class GameManager : MonoBehaviour
                 snakeMovement.moveSpeed = kidMovespeed;
                 break;
             case 2:
+                snakeMovement.moveSpeed = hardcoreKoreanMovespeed;
+                break;
+            case 3:
                 snakeMovement.moveSpeed = hardcoreKoreanMovespeed;
                 break;
         }
