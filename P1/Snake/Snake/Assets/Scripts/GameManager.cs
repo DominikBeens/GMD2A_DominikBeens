@@ -17,12 +17,16 @@ public class GameManager : MonoBehaviour
     public int kidMovespeed;
     public int hardcoreKoreanMovespeed;
 
+    public bool autopilot;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+
+        UIManager.instance.autopilotButton.CrossFadeAlpha(0.05f, 0, true);
     }
 
     private void Start()
@@ -77,6 +81,22 @@ public class GameManager : MonoBehaviour
             case 3:
                 snakeMovement.moveSpeed = hardcoreKoreanMovespeed;
                 break;
+        }
+    }
+
+    public void AutopilotButton()
+    {
+        if (!autopilot)
+        {
+            autopilot = true;
+
+            UIManager.instance.autopilotButton.CrossFadeAlpha(1, 0.5f, true);
+        }
+        else
+        {
+            autopilot = false;
+
+            UIManager.instance.autopilotButton.CrossFadeAlpha(0.05f, 0.5f, true);
         }
     }
 }

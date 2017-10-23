@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviour
     public GameObject deathPanel;
     public Text endScoreText;
 
+    [Header("AI")]
+    public Image autopilotButton;
+
     private void Awake()
     {
         if (instance == null)

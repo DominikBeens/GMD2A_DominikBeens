@@ -38,7 +38,7 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
-    private void RecordPosition()
+    public void RecordPosition()
     {
         RecordTransform recording = new RecordTransform()
         {

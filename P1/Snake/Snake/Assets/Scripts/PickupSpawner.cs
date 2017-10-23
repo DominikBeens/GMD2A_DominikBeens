@@ -7,6 +7,8 @@ public class PickupSpawner : MonoBehaviour
 
     public static PickupSpawner instance;
 
+    public GameObject spawnedPickup;
+
     public GameObject pickup;
 
     public bool canSpawn;
@@ -40,7 +42,7 @@ public class PickupSpawner : MonoBehaviour
         {
             if (hit.transform.tag == "Ground")
             {
-                GameObject pickupInstance = Instantiate(pickup, randomizedSpawn, Quaternion.identity, GameManager.instance.arena.transform);
+                spawnedPickup = Instantiate(pickup, randomizedSpawn, Quaternion.identity, GameManager.instance.arena.transform);
             }
             else
             {
