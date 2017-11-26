@@ -22,6 +22,7 @@ public class Planet : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             print("Planet destroyed");
         }
     }

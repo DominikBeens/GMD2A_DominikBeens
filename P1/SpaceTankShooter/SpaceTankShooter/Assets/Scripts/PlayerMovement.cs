@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     public ParticleSystem dashTrailParticle;
 
+    public GameObject planet;
+    public float teleportResizeStep = 0.1f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            StartCoroutine(TeleportOppositeDirection());
             //Jump();
         }
 
@@ -84,6 +88,24 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         moveSpeed = curSpeed;
+    }
+
+    private IEnumerator TeleportOppositeDirection()
+    {
+        while (transform.localScale.x > 0.1f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x - teleportResizeStep, transform.localScale.y - teleportResizeStep, transform.localScale.z - teleportResizeStep);
+            yield return null;
+        }
+
+        transform.position += -transform.up * planet.GetComponent<Renderer>().bounds.size.z * 2;
+        yield return null;
+
+        while (transform.localScale.x < 1f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x + teleportResizeStep, transform.localScale.y + teleportResizeStep, transform.localScale.z + teleportResizeStep);
+            yield return null;
+        }
     }
 
     private void DashCooldownToUI()

@@ -17,20 +17,19 @@ public class Gun : MonoBehaviour
     public FireMode fireMode;
     [Space(10)]
     public GameObject bullet;
+    public GameObject bullet2;
 
     [Header("Left Mouse Button")]
     public float leftMBFireRate;
     private float leftMBFireRateCooldown;
     private float leftMBFill;
     private float leftMBFillCooldown;
-    public float leftMBFireForce;
 
     [Header("Right Mouse Button")]
     public float rightMBFireRate;
     private float rightMBFireRateCooldown;
     private float rightMBFill;
     private float rightMBFillCooldown;
-    public float rightMBFireForce;
 
     [Space(10)]
     public int maxAmmo;
@@ -104,13 +103,16 @@ public class Gun : MonoBehaviour
         leftMBFill = 0;
 
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.transform.rotation);
-        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * leftMBFireForce, ForceMode.Impulse);
+        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletInstance.GetComponent<Bullet>().launchForce, ForceMode.Impulse);
     }
 
     private void ShootRightMB()
     {
         currentClipAmmo--;
         rightMBFill = 0;
+
+        GameObject bulletInstance = Instantiate(bullet2, bulletSpawn.position, bulletSpawn.transform.rotation);
+        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletInstance.GetComponent<Bullet>().launchForce, ForceMode.Impulse);
     }
 
     private IEnumerator Reload(float reloadTime)

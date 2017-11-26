@@ -295,6 +295,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 372785348}
+--- !u!1 &421225348 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1817656619039362, guid: cf172e1170165f0468faf1d1e6f3c9f7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1842101269}
 --- !u!4 &500680351 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4861341116113430, guid: cf172e1170165f0468faf1d1e6f3c9f7,
@@ -1316,16 +1321,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114087528041075052, guid: 609e42ee9801e0b4f8eeef4916ac33af,
-        type: 2}
-      propertyPath: camShake
-      value: 
-      objectReference: {fileID: 1449312742}
     - target: {fileID: 114672153963348116, guid: 609e42ee9801e0b4f8eeef4916ac33af,
         type: 2}
       propertyPath: attractor
       value: 
       objectReference: {fileID: 1498115955}
+    - target: {fileID: 114087528041075052, guid: 609e42ee9801e0b4f8eeef4916ac33af,
+        type: 2}
+      propertyPath: camShake
+      value: 
+      objectReference: {fileID: 1449312742}
+    - target: {fileID: 114437429256327350, guid: 609e42ee9801e0b4f8eeef4916ac33af,
+        type: 2}
+      propertyPath: planet
+      value: 
+      objectReference: {fileID: 421225348}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 609e42ee9801e0b4f8eeef4916ac33af, type: 2}
   m_IsPrefabParent: 0

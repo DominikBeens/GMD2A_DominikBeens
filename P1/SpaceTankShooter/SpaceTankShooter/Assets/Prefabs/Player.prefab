@@ -586,10 +586,11 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4241562457392522}
   fireMode: 1
   bullet: {fileID: 1690184902853230, guid: a13cd4801f9329b4d9a5f3dc8d82657b, type: 2}
+  bullet2: {fileID: 1690184902853230, guid: 48bca394402c17b49b477872dc59c3fd, type: 2}
   leftMBFireRate: 10
   leftMBFireForce: 100
   rightMBFireRate: 0.2
-  rightMBFireForce: 100
+  rightMBFireForce: 50
   maxAmmo: 500
   currentAmmo: 500
   maxClipAmmo: 25
