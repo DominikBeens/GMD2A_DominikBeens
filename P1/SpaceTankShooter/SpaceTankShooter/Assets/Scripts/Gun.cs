@@ -19,6 +19,10 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     public GameObject bullet2;
 
+    public float bulletFireForce;
+
+    public GameObject shootParticle;
+    
     [Header("Left Mouse Button")]
     public float leftMBFireRate;
     private float leftMBFireRateCooldown;
@@ -32,13 +36,10 @@ public class Gun : MonoBehaviour
     private float rightMBFillCooldown;
 
     [Space(10)]
-    public int maxAmmo;
-    public int currentAmmo;
-    public int maxClipAmmo;
-    public int currentClipAmmo;
+    public int maxCharge;
+    public int currentCharge;
     [Space(10)]
-    public float reloadTime;
-    private float reloadCooldownFill;
+    public float reloadStep;
     private bool reloading;
 
     [Header("Camera Shake")]
@@ -53,9 +54,9 @@ public class Gun : MonoBehaviour
     {
         FireCooldownToUI();
 
-        if (currentAmmo > 0)
+        if (GameManager.instance.gameState == GameManager.GameState.Playing)
         {
-            if (currentClipAmmo > 0)
+            if (currentCharge > 0 && !reloading)
             {
                 if (fireMode == FireMode.Auto)
                 {
@@ -86,12 +87,21 @@ public class Gun : MonoBehaviour
                     camShake.Shake(shakeDurationPerShot, shakeAmountPerShotXY * rightMouseButtonShakeMultiplier, shakeAmountPerShotZ * rightMouseButtonShakeMultiplier, rotateAmountPerShot * rightMouseButtonShakeMultiplier);
                 }
 
+                if (Input.GetButton("Fire1") || Input.GetButton("Fire2"))
+                {
+                    shootParticle.SetActive(true);
+                }
+                else
+                {
+                    shootParticle.SetActive(false);
+                }
             }
             else
             {
                 if (!reloading)
                 {
-                    StartCoroutine(Reload(reloadTime));
+                    StartCoroutine(Reload());
+                    shootParticle.SetActive(false);
                 }
             }
         }
@@ -99,33 +109,35 @@ public class Gun : MonoBehaviour
 
     private void ShootLeftMB()
     {
-        currentClipAmmo--;
+        currentCharge--;
         leftMBFill = 0;
 
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.transform.rotation);
-        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletInstance.GetComponent<Bullet>().launchForce, ForceMode.Impulse);
+        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletFireForce, ForceMode.Impulse);
     }
 
     private void ShootRightMB()
     {
-        currentClipAmmo--;
+        currentCharge--;
         rightMBFill = 0;
 
         GameObject bulletInstance = Instantiate(bullet2, bulletSpawn.position, bulletSpawn.transform.rotation);
-        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletInstance.GetComponent<Bullet>().launchForce, ForceMode.Impulse);
+        bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * bulletFireForce, ForceMode.Impulse);
     }
 
-    private IEnumerator Reload(float reloadTime)
+    private IEnumerator Reload()
     {
         reloading = true;
-        reloadCooldownFill = 0;
 
-        yield return new WaitForSeconds(reloadTime);
+        float load = 0;
+        float maxload = maxCharge;
 
-        int ammoNeeded = maxClipAmmo - currentClipAmmo;
-
-        currentAmmo -= ammoNeeded;
-        currentClipAmmo += ammoNeeded;
+        while (load < maxload)
+        {
+            load += reloadStep;
+            currentCharge = (int)load;
+            yield return null;
+        }
 
         reloading = false;
     }
@@ -157,9 +169,10 @@ public class Gun : MonoBehaviour
         }
         else
         {
-            reloadCooldownFill += 1 / reloadTime * Time.deltaTime;
-            UIManager.instance.leftMouseButtonCooldown.fillAmount = reloadCooldownFill;
-            UIManager.instance.rightMouseButtonCooldown.fillAmount = reloadCooldownFill;
+            UIManager.instance.leftMouseButtonCooldown.fillAmount = ((float)currentCharge / maxCharge);
+            UIManager.instance.rightMouseButtonCooldown.fillAmount = ((float)currentCharge / maxCharge);
         }
+
+        UIManager.instance.weaponCharge.fillAmount = ((float)currentCharge / maxCharge);
     }
 }

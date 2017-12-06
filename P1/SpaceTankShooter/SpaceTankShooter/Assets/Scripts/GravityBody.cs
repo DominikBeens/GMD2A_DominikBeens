@@ -9,6 +9,14 @@ public class GravityBody : MonoBehaviour
 
     public float rotateSpeed = 25f;
 
+    private void Awake()
+    {
+        if (attractor == null)
+        {
+            attractor = SpawnManager.instance.targetPlanet.GetComponent<GravityAttractor>();
+        }
+    }
+
     private void Update()
     {
         attractor.Attract(transform);

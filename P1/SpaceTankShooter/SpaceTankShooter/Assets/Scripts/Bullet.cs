@@ -16,12 +16,6 @@ public class Bullet : MonoBehaviour
 
     public float damage;
 
-    public float launchForce;
-
-    public float impactForce;
-
-    public float deactivateTimer;
-
     private void Awake()
     {
         if (side == Side.Friendly)
@@ -68,5 +62,21 @@ public class Bullet : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    public void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "ShieldParticle")
+        {
+            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer renderer in meshRenderers)
+            {
+                renderer.enabled = false;
+            }
+
+            Instantiate(impactParticle, transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
+        }
     }
 }

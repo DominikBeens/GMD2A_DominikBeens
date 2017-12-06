@@ -31,11 +31,11 @@ public class Test : MonoBehaviour
         //    }
         //}
 
-        lookAt = GetWorldPositionOnPlane(Input.mousePosition, player.position.z);
-        if (lookAt != null)
-        {
-            transform.position = lookAt;
-        }
+        //lookAt = GetWorldPositionOnPlane(Input.mousePosition, player.position.z);
+        //if (lookAt != null)
+        //{
+        //    transform.position = lookAt;
+        //}
     }
 
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
