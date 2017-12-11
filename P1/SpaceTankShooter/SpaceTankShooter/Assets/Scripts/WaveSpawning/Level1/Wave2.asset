@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - enemy: {fileID: 1060817372916818, guid: 82209bd084d65344d9f367f6e58b7d0f, type: 2}
-    amount: 6
+    amount: 4
   - enemy: {fileID: 1450042911210668, guid: f3e9084e9dc8e904e970c5d34d4bcb2a, type: 2}
-    amount: 6
-  endOfWaveCountDown: 0
+    amount: 4
+  endOfWaveCountDown: 5

@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4447464227769710}
   - component: {fileID: 54552534339601690}
-  - component: {fileID: 114566000707130044}
+  - component: {fileID: 114073857355600422}
   m_Layer: 8
   m_Name: Bullet_Big
   m_TagString: Untagged
@@ -68,7 +68,7 @@ Transform:
   m_GameObject: {fileID: 1033653260551750}
   m_LocalRotation: {x: 0.70710665, y: -0, z: -0, w: 0.7071069}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 0.2, y: 0.4, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.4, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4447464227769710}
   m_RootOrder: 0
@@ -127,7 +127,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &114566000707130044
+--- !u!114 &114073857355600422
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -135,13 +135,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1690184902853230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa3933e3479e344597d27d13662dfad, type: 3}
+  m_Script: {fileID: 11500000, guid: af32b2190871a5a43a9b504672152bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side: 0
-  impactParticle: {fileID: 1591402662624982, guid: 89954faba5d3527409a41962922c4531,
-    type: 2}
-  damage: 250
+  bullet: {fileID: 11400000, guid: 8d0de9f5e19dd7445b39d96558a0c633, type: 2}
 --- !u!136 &136217426020380874
 CapsuleCollider:
   m_ObjectHideFlags: 1

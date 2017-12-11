@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class Gun : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Gun : MonoBehaviour
     public float bulletFireForce;
 
     public GameObject shootParticle;
+    public PostProcessingProfile profile;
     
     [Header("Left Mouse Button")]
     public float leftMBFireRate;
@@ -64,7 +66,9 @@ public class Gun : MonoBehaviour
                     {
                         leftMBFireRateCooldown = Time.time + 1f / leftMBFireRate;
                         leftMBFillCooldown = leftMBFireRateCooldown - Time.time;
+
                         ShootLeftMB();
+
                         camShake.Shake(shakeDurationPerShot, shakeAmountPerShotXY, shakeAmountPerShotZ, rotateAmountPerShot);
                     }
                 }
@@ -74,7 +78,9 @@ public class Gun : MonoBehaviour
                     {
                         leftMBFireRateCooldown = Time.time + 1f / leftMBFireRate;
                         leftMBFillCooldown = leftMBFireRateCooldown - Time.time;
+
                         ShootLeftMB();
+
                         camShake.Shake(shakeDurationPerShot, shakeAmountPerShotXY, shakeAmountPerShotZ, rotateAmountPerShot);
                     }
                 }
@@ -83,7 +89,9 @@ public class Gun : MonoBehaviour
                 {
                     rightMBFireRateCooldown = Time.time + 1f / rightMBFireRate;
                     rightMBFillCooldown = rightMBFireRateCooldown - Time.time;
+
                     ShootRightMB();
+
                     camShake.Shake(shakeDurationPerShot, shakeAmountPerShotXY * rightMouseButtonShakeMultiplier, shakeAmountPerShotZ * rightMouseButtonShakeMultiplier, rotateAmountPerShot * rightMouseButtonShakeMultiplier);
                 }
 
@@ -140,6 +148,13 @@ public class Gun : MonoBehaviour
         }
 
         reloading = false;
+    }
+
+    private void EditChromaticAberration(float value)
+    {
+        var settings = profile.chromaticAberration.settings;
+        settings.intensity = value;
+        profile.chromaticAberration.settings = settings;
     }
 
     private void FireCooldownToUI()

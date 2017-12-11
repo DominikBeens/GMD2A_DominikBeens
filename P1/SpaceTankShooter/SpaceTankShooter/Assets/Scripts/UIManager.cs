@@ -16,10 +16,16 @@ public class UIManager : MonoBehaviour
 
     public GameObject introPanel;
     public GameObject pausePanel;
+    public GameObject levelEndPanel;
+
+    public TextMeshProUGUI wavesDefendedText;
 
     public GameObject timerTextObject;
     [HideInInspector]
     public TextMeshProUGUI timerText;
+
+    public GameObject timerPanel;
+    public GameObject weaponInfoPanel;
 
     private void Awake()
     {
@@ -33,5 +39,8 @@ public class UIManager : MonoBehaviour
         }
 
         timerText = timerTextObject.GetComponent<TextMeshProUGUI>();
+
+        timerPanel.SetActive(false);
+        weaponInfoPanel.SetActive(false);
     }
 }

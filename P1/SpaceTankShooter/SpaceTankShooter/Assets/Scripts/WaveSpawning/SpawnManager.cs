@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -10,10 +11,17 @@ public class SpawnManager : MonoBehaviour
     public Spawn_Spawner spawnInfo;
 
     public List<Transform> spawnPoints = new List<Transform>();
+    private List<Transform> usedSpawnPoints = new List<Transform>();
 
     public float rocketFireForce;
 
     public Transform targetPlanet;
+
+    [Header("Wave Text")]
+    public TextMeshProUGUI waveText;
+    public Animator waveTextAnim;
+
+    [HideInInspector] public int waveCount;
 
     private void Awake()
     {
@@ -27,18 +35,14 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public IEnumerator Spawn()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(Spawn());
-        }
-    }
+        waveCount = 1;
 
-    private IEnumerator Spawn()
-    {
         for (int i = 0; i < spawnInfo.spawns.Count; i++)
         {
+            ShowWaveText(waveCount);
+
             for (int ii = 0; ii < spawnInfo.spawns[i].enemies.Count; ii++)
             {
                 for (int iii = 0; iii < spawnInfo.spawns[i].enemies[ii].amount; iii++)
@@ -52,6 +56,14 @@ public class SpawnManager : MonoBehaviour
                     yield return new WaitForSeconds(spawnInfo.spawns[i].endOfWaveCountDown);
                 }
             }
+
+            waveCount++;
+            usedSpawnPoints.Clear();
+
+            if (i == spawnInfo.spawns.Count - 1)
+            {
+                i = 0;
+            }
         }
     }
 
@@ -59,7 +71,17 @@ public class SpawnManager : MonoBehaviour
     {
         int spawnPoint = Random.Range(0, spawnPoints.Count);
 
-        GameObject enemySpawn = Instantiate(enemy, spawnPoints[spawnPoint].position, Quaternion.identity);
+        GameObject enemySpawn = new GameObject();
+        if (!usedSpawnPoints.Contains(spawnPoints[spawnPoint]))
+        {
+            enemySpawn = Instantiate(enemy, spawnPoints[spawnPoint].position, Quaternion.identity);
+            usedSpawnPoints.Add(spawnPoints[spawnPoint]);
+        }
+        else
+        {
+            SpawnEnemy(enemy);
+            return;
+        }
 
         Enemy enemyComponent = enemySpawn.GetComponent<Enemy>();
         switch (enemyComponent.type)
@@ -75,5 +97,11 @@ public class SpawnManager : MonoBehaviour
                 enemySpawn.GetComponent<Rigidbody>().AddForce(enemySpawn.transform.forward * enemyComponent.stats.instantiateForce, ForceMode.Impulse);
                 break;
         }
+    }
+
+    private void ShowWaveText(int wave)
+    {
+        waveText.text = "Wave " + wave;
+        waveTextAnim.SetTrigger("Show");
     }
 }

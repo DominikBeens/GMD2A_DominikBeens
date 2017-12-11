@@ -23,7 +23,9 @@ public class Planet : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            print("Planet destroyed");
+
+            GameManager.instance.gameState = GameManager.GameState.End;
+            GameManager.instance.StartCoroutine(GameManager.instance.EndGame());
         }
     }
 }

@@ -15,7 +15,9 @@ public class AbilitySelecter : MonoBehaviour
     public Type type;
 
     public GameObject abilityList;
+
     public TextMeshProUGUI selectAbilityText;
+    public Animator selectAbilityAnim;
 
     private void Update()
     {
@@ -50,5 +52,8 @@ public class AbilitySelecter : MonoBehaviour
         {
             AbilityManager.instance.abilityE.ability = ability;
         }
+
+        abilityList.SetActive(false);
+        selectAbilityAnim.SetTrigger("Selected");
     }
 }

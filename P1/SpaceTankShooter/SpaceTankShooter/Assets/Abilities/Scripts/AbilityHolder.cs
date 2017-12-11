@@ -15,15 +15,21 @@ public class AbilityHolder : MonoBehaviour
     private void Update()
     {
         TeleportCooldownToUI();
+    }
 
-        if (Input.GetKeyDown(KeyCode.E) && Time.time >= cooldown)
+    public void UseAbility()
+    {
+        if (ability != null)
         {
-            cooldown = Time.time + 1f / ability.timer;
-            cooldownAmount = cooldown - Time.time;
+            if (Time.time >= cooldown)
+            {
+                cooldown = Time.time + 1f / ability.timer;
+                cooldownAmount = cooldown - Time.time;
 
-            cooldownFill = 0;
+                cooldownFill = 0;
 
-            ability.Initialize();
+                ability.Initialize();
+            }
         }
     }
 

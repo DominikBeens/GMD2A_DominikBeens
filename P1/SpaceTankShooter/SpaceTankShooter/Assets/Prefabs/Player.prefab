@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4022859413301358}
   - component: {fileID: 33103171388363250}
   - component: {fileID: 23137625533987178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4729025037832938}
   - component: {fileID: 108878400175578196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4607044135791658}
   - component: {fileID: 33095596215593044}
   - component: {fileID: 23171417948942870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4786273630548706}
   - component: {fileID: 33184712467517366}
   - component: {fileID: 23848675238800502}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4275993866731948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShieldSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4241562457392522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 199497499407799432}
   - component: {fileID: 114866625924633820}
   - component: {fileID: 114640986982561516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Steam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4439436815839300}
   - component: {fileID: 198699498568946662}
   - component: {fileID: 199955541550070496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 4085480510543048}
   - component: {fileID: 33486144805613362}
   - component: {fileID: 23761648131543764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 54192316391910340}
   - component: {fileID: 114437429256327350}
   - component: {fileID: 114672153963348116}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 23780417496134950}
   - component: {fileID: 114469057622005114}
   - component: {fileID: 114087528041075052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 23729198674060510}
   - component: {fileID: 65802758637738222}
   - component: {fileID: 95279758157062330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Robot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1582381536450696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 5.45}
+  m_LocalPosition: {x: 0, y: 0, z: 6.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4356715763119702}
@@ -712,7 +712,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4241562457392522}
   fireMode: 1
   bullet: {fileID: 1690184902853230, guid: a13cd4801f9329b4d9a5f3dc8d82657b, type: 2}
-  bullet2: {fileID: 1690184902853230, guid: 48bca394402c17b49b477872dc59c3fd, type: 2}
+  bullet2: {fileID: 1690184902853230, guid: 563bd2403051fbf4a900691b83c3e618, type: 2}
   bulletFireForce: 75
   shootParticle: {fileID: 1636764513766742}
   leftMBFireRate: 10
@@ -740,23 +740,6 @@ MonoBehaviour:
   gunMovement: {fileID: 114469057622005114}
   moveSpeed: 10
   jumpForce: 8
-  ability_Shift: 0
-  ability_E: 0
-  dashTime: 0.2
-  dashSpeed: 30
-  dashTimer: 0.6
-  dashCooldownFill: 0
-  dashTrailParticle: {fileID: 198857050021473244}
-  planet: {fileID: 0}
-  teleportResizeStep: 0.1
-  tpTimer: 0.2
-  tpCooldownFill: 0
-  particle: {fileID: 1849921183483434, guid: da31911ca241ef345aee3217d7620d9e, type: 2}
-  shieldParticle: {fileID: 1690937070228014, guid: 60c874552d1966248b46e3c734ee47f4,
-    type: 2}
-  shieldSpawn: {fileID: 4275993866731948}
-  worldShieldParticle: {fileID: 1655560232925216, guid: c6400867a6f29f24d8a801ea2a5ba63e,
-    type: 2}
 --- !u!114 &114469057622005114
 MonoBehaviour:
   m_ObjectHideFlags: 1

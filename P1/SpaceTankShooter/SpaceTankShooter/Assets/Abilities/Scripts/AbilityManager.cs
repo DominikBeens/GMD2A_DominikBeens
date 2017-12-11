@@ -22,6 +22,19 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("LeftShift"))
+        {
+            abilityShift.UseAbility();
+        }
+
+        if (Input.GetButtonDown("E"))
+        {
+            abilityE.UseAbility();
+        }
+    }
+
     public IEnumerator Timer(Ability ability, float time)
     {
         ability.state = Ability.AbilityState.Waiting;

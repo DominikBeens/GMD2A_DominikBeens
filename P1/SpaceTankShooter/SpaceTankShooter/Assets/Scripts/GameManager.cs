@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +14,15 @@ public class GameManager : MonoBehaviour
     {
         Intro,
         Playing,
-        Paused
+        Paused,
+        End
     }
     public GameState gameState;
 
     public Animator timerAnim;
+    public Animator weaponInfoAnim;
+
+    public PostProcessingBehaviour pPBehaviour;
 
     [Header("Timer")]
     public float time;
@@ -41,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameState.Intro || gameState == GameState.Paused)
         {
+            pPBehaviour.enabled = false;
             Time.timeScale = 0;
 
             if (Input.GetButtonDown("Jump"))
@@ -57,8 +63,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else
+        else if (gameState == GameState.Playing)
         {
+            pPBehaviour.enabled = true;
             Time.timeScale = 1;
             time += Time.deltaTime;
             uim.timerText.text = ((int)(time / 60)).ToString("00") + ":" + ((int)(time % 60)).ToString("00");
@@ -74,11 +81,36 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartGame()
     {
         uim.introPanel.SetActive(false);
+
+        uim.weaponInfoPanel.SetActive(true);
+        //weaponInfoAnim.SetTrigger("Show");
+
+        yield return new WaitForSeconds(weaponInfoAnim.GetCurrentAnimatorClipInfo(0).Length);
+
+        uim.timerPanel.SetActive(true);
         timerAnim.SetTrigger("Show");
 
         yield return new WaitForSeconds(0.5f);
 
         timerAnim.SetTrigger("Hide");
+
+        yield return new WaitForSeconds(3.5f);
+
+        SpawnManager.instance.StartCoroutine(SpawnManager.instance.Spawn());
+    }
+
+    public IEnumerator EndGame()
+    {
+        while (Time.timeScale > 0.2f)
+        {
+            Time.timeScale -= 0.05f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Time.timeScale = 0;
+
+        SpawnManager.instance.waveText.gameObject.SetActive(false);
+        uim.wavesDefendedText.text = "Waves Defended: " + (SpawnManager.instance.waveCount - 1);
+        uim.levelEndPanel.SetActive(true);
     }
 
     public void ReturnToMainMenuButton()
