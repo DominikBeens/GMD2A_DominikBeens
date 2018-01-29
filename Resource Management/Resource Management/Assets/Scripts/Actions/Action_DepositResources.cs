@@ -35,7 +35,9 @@ public class Action_DepositResources : BaseAction
             {
                 if (workerInv.items[i].quantity > 1)
                 {
+                    // Add to resource base inventory.
                     ResourceManager.instance.inventory.AddSpecificItem(workerInv.GetSpecificItem("pickaxe").itemName, workerInv.GetSpecificItem("pickaxe").quantity - 1);
+                    // Remove from worker inventory.
                     workerInv.RemoveSpecificItem("pickaxe", workerInv.GetSpecificItem("pickaxe").quantity - 1);
                     break;
                 }

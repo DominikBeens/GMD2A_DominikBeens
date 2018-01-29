@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class Worker : Entity
 {
 
+    // These are all the tasks which a worker can do.
+    // Currently Wandering doesnt do anything and just serves as an empty default state.
     public enum State
     {
         Wandering,
@@ -23,6 +25,7 @@ public class Worker : Entity
     public GameObject workProgressObject;
     public Image workProgressFill;
 
+    // Variable to keep track of the workers current task.
     public Task currentTask;
 
     // Available actions.
@@ -35,6 +38,7 @@ public class Worker : Entity
         base.Awake();
     }
 
+    // Every worker goes to work automatically when starting the game.
     private void Start()
     {
         TaskManager.instance.GetNewTask(this);
@@ -46,6 +50,8 @@ public class Worker : Entity
     }
 
     // Sets a certain task depending on the next state.
+    // For example:
+    // If you call SetTask(State.Mining) it creates a new Task_Mine in currentTask, sets it up and tells the worker do work on that task.
     public void SetTask(State nextState)
     {
         // Sets the next task based on this methods overload

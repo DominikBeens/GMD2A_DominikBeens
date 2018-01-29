@@ -7,7 +7,7 @@ public class BaseAction
 {
     // Every action has three states. UnCompleted, InProgress and Completed.
     // Actions are like little universal helper functions of tasks.
-    // The task itself has all the functionality the worker needs to complete that task but a task can also contain multiple action that need to completed aswell.
+    // The task itself has all the functionality the worker needs to complete that task but a task can also contain multiple actions that need to completed aswell.
     // Right now an action can be to deposit a workers resources or get some resources from the resource base.
 
     // The Setup() sets the destination of where the action has to be completed.

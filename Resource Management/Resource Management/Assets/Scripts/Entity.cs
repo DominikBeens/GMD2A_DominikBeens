@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     [HideInInspector]
     public NavMeshAgent agent;
 
+    // This gets displayed on a panel when you click on an entity.
     [HideInInspector]
     public string currentJobDescription;
 

@@ -71,6 +71,7 @@ public class Inventory
         }
     }
 
+    // This function loops through the inventory to search for a specific item specified with the parameter 'item' and then returns that item.
     public Item GetSpecificItem(string item)
     {
         for (int i = 0; i < items.Count; i++)
