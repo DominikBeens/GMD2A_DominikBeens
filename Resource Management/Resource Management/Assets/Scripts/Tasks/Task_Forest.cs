@@ -32,6 +32,7 @@ public class Task_Forest : Task
         GetClosestTree();
         Debug.Log(closestTree.name);
 
+        // If the worker is already at the tree, do the task, no need to walk to it.
         if (Vector3.Distance(myWorker.transform.position, closestTree.transform.position) < 1f)
         {
             DoTask();
@@ -46,8 +47,12 @@ public class Task_Forest : Task
     {
         GameObject[] allTrees = GameObject.FindGameObjectsWithTag("Tree");
 
+        // Resets closest tree if there was one.
+        closestTree = null;
+
         for (int i = 0; i < allTrees.Length; i++)
         {
+            // If theres no closest tree assigned yet, assign this one.
             if (closestTree == null)
             {
                 if (allTrees[i].GetComponent<Objective>().availability == Objective.Availability.Available)
@@ -73,15 +78,14 @@ public class Task_Forest : Task
     {
         base.CompleteTask();
 
-        // Tree has been cut down, display a grow animation.
-        //closestTree.GetComponent<Animator>().SetTrigger("Grow");
-        Object.Destroy(closestTree);
+        // Tree has been cut down, display a grow animation which sets the tree objective to unavailable and back to available when its finished growing.
+        closestTree.GetComponent<Animator>().SetTrigger("Grow");
 
         myWorker.inventory.AddSpecificItem("wood", 1);
 
         // A little randomizer where the worker either goes to work again or goes to deposit his earned items.
         int randomizer = Random.Range(0, 2);
-        if (randomizer == 0 || randomizer == 1)
+        if (randomizer == 0)
         {
             TaskManager.instance.StartCoroutine(ChopNextTree());
         }
@@ -93,10 +97,11 @@ public class Task_Forest : Task
             state = State.Available;
         }
     }
-
+   
+    // The worker waits a little bit and then goes back to chopping the next closest tree
     private IEnumerator ChopNextTree()
     {
-        yield return new WaitForSeconds(2f);
-        myWorker.SetTask(Worker.State.ChoppingTrees);
+        yield return new WaitForSeconds(0.5f);
+        StartTask(myWorker);
     }
 }

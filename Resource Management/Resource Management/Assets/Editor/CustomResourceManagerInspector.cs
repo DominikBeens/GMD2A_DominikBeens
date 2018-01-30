@@ -61,7 +61,6 @@ public class CustomResourceManagerInspector : Editor
         EditorGUILayout.Space();
 
         #region Bake Costs
-
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Bake Costs", EditorStyles.boldLabel);
         EditorGUILayout.EndHorizontal();
@@ -102,7 +101,6 @@ public class CustomResourceManagerInspector : Editor
 
         EditorGUILayout.EndVertical();
         #endregion
-
     }
 
     private void AddItem()

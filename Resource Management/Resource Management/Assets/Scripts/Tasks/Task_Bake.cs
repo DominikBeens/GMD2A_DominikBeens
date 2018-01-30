@@ -32,14 +32,18 @@ public class Task_Bake : Task
     {
         base.StartTask(worker);
 
+        // If the worker has all of the grain needed to bake a bread, send him to the bakery.
         if (myWorker.inventory.ContainsSpecificItem("grain", breadGrainCost))
         {
             myWorker.agent.SetDestination(destination.position);
         }
+        // Else check if the resource base has grain.
         else if (ResourceManager.instance.inventory.ContainsSpecificItem("grain", breadGrainCost))
         {
+            // If it does, go get the grain from there.
             myWorker.action_GetResources.Setup();
 
+            // Check if the worker is already at the right place.
             if (Vector3.Distance(myWorker.transform.position, destination.position) < 25f)
             {
                 // One bread costs a certain amount of grain to make, this function divides the amount of grain we have with the amount of grain needed to make one bread.
@@ -54,11 +58,13 @@ public class Task_Bake : Task
                 myWorker.action_GetResources.CompleteAction(myWorker);
                 myWorker.agent.SetDestination(destination.position);
             }
+            // Else send him there.
             else
             {
                 myWorker.action_GetResources.DoAction(myWorker);
             }
         }
+        // Else if there is no grain anywhere, give him a new task which should tell him to go and harvest grain.
         else
         {
             TaskManager.instance.GetNewTask(myWorker);

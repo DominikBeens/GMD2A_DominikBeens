@@ -34,28 +34,35 @@ public class Task_Smith : Task
     {
         base.StartTask(worker);
 
+        // If the worker has enough resources to make a pickaxe, send him to the smith.
         if (myWorker.inventory.ContainsSpecificItem("wood", pickaxeWoodCost) && myWorker.inventory.ContainsSpecificItem("ore", pickaxeOreCost))
         {
             myWorker.agent.SetDestination(destination.position);
         }
+        // Else check if the resource base has all of the needed resources.
         else if (ResourceManager.instance.inventory.ContainsSpecificItem("wood", pickaxeWoodCost) && ResourceManager.instance.inventory.ContainsSpecificItem("ore", pickaxeOreCost))
         {
+            // If it has, send the worker to get them.
             myWorker.action_GetResources.Setup();
 
+            // Check if hes already at the resource base.
             if (Vector3.Distance(myWorker.transform.position, destination.position) < 25f)
             {
                 // Prepares the action to get resources.
                 myWorker.action_GetResources.resourcesToGet.Add(new Item("wood", pickaxeWoodCost));
                 myWorker.action_GetResources.resourcesToGet.Add(new Item("ore", pickaxeOreCost));
 
+                // Completes the action and sends him to the smith.
                 myWorker.action_GetResources.CompleteAction(myWorker);
                 myWorker.agent.SetDestination(destination.position);
             }
+            // Else send him there.
             else
             {
                 myWorker.action_GetResources.DoAction(myWorker);
             }
         }
+        // Else if there is no resources to make a pickaxe anywhere, give him a new task which will probably tell him to gather resources.
         else
         {
             TaskManager.instance.GetNewTask(myWorker);
