@@ -29,8 +29,8 @@ public class Task_Forest : Task
     {
         base.StartTask(worker);
 
+        // Finds the closest tree.
         GetClosestTree();
-        Debug.Log(closestTree.name);
 
         // If the worker is already at the tree, do the task, no need to walk to it.
         if (Vector3.Distance(myWorker.transform.position, closestTree.transform.position) < 1f)
@@ -39,6 +39,7 @@ public class Task_Forest : Task
             return;
         }
 
+        // If he isnt, tell him to go to the closest tree.
         myWorker.agent.SetDestination(closestTree.transform.position);
     }
 

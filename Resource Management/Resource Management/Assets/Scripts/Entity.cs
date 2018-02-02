@@ -23,7 +23,8 @@ public class Entity : MonoBehaviour
 
     [Header("Stats")]
     public Stats stats;
-    private float statDepletionCooldown;
+    // Keeps track of when this dudes stats need to be checked and updated again.
+    private float statCheckCooldown;
 
     public virtual void Awake()
     {
@@ -33,9 +34,9 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         // Stat depletion runs on a timer.
-        if (Time.time >= statDepletionCooldown)
+        if (Time.time >= statCheckCooldown)
         {
-            statDepletionCooldown = Time.time + stats.statUpdateRate;
+            statCheckCooldown = Time.time + stats.statUpdateRate;
             stats.StatDepletion();
 
             // Check if health is less than zero.

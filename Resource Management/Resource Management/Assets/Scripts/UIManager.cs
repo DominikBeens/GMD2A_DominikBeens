@@ -21,9 +21,10 @@ public class UIManager : MonoBehaviour
     public Text workerHungerText;
     public Image workerHungerFill;
 
-    private static Worker selectedWorker;
+    public static Worker selectedWorker;
 
     [Header("Resource Panel")]
+    // This hangs out on screen and displays the amount of resources we have.
     public Text oreText;
     public Text woodText;
     public Text grainText;

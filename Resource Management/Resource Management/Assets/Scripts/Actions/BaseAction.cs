@@ -23,10 +23,6 @@ public class BaseAction
 
     public Transform destination;
 
-    [Header("Progress")]
-    public float actionTime;
-    public float actionProgress;
-
     public virtual void Setup()
     {
         state = State.UnCompleted;

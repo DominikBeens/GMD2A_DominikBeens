@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Objective : MonoBehaviour
 {
 
+    // World space canvas with a text object that displays the name of this objective.
     private Text objectiveText;
     private Animator anim;
 
@@ -102,7 +103,7 @@ public class Objective : MonoBehaviour
             anim.SetTrigger("Trigger");
         }
 
-        // If the workes is trying to get resources, let him complete that action and give him a new task.
+        // If the workes is trying to get resources, let him complete that action and start the task hes working on.
         if (worker.action_GetResources.state == BaseAction.State.InProgress)
         {
             worker.action_GetResources.CompleteAction(worker);

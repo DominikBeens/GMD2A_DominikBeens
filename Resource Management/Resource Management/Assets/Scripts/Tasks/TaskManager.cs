@@ -7,16 +7,12 @@ public class TaskManager : MonoBehaviour
 
     public static TaskManager instance;
 
-    public Worker[] allWorkers;
-
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
-
-        allWorkers = FindObjectsOfType<Worker>();
     }
 
     public void GetNewTask(Worker worker)
@@ -44,9 +40,10 @@ public class TaskManager : MonoBehaviour
                 worker.action_GetResources = new Action_GetResources();
                 worker.action_GetResources.Setup();
 
+                // If the worker is already at the right place, give him some bread.
                 if (Vector3.Distance(worker.transform.position, worker.action_GetResources.destination.position) < 25f)
                 {
-                    // Prepares the action to get resources.
+                    // Prepares the action to get resources (tells the action that it should fetch bread).
                     worker.action_GetResources.resourcesToGet.Add(new Item("bread", 1));
 
                     //Completes the action.
@@ -55,6 +52,7 @@ public class TaskManager : MonoBehaviour
                     // Calls this function again so it goes through the above checks again but this time the worker has bread in his inventory.
                     GetNewTask(worker);
                 }
+                // If not, walk to the right place.
                 else
                 {
                     worker.action_GetResources.DoAction(worker);
@@ -101,7 +99,7 @@ public class TaskManager : MonoBehaviour
             worker.SetTask(Worker.State.ChoppingTrees);
             return;
         }
-        // Else if all the supply amounts are all equal, pick a random task.
+        // Else if the supplies are all equal, pick a random task.
         else
         {
             int randomTask = Random.Range(0, 2);

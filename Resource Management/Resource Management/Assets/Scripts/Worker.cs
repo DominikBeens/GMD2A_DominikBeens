@@ -54,7 +54,7 @@ public class Worker : Entity
     // If you call SetTask(State.Mining) it creates a new Task_Mine in currentTask, sets it up and tells the worker do work on that task.
     public void SetTask(State nextState)
     {
-        // Sets the next task based on this methods overload
+        // Sets the next task based on nextState.
         switch (nextState)
         {
             case State.ChoppingTrees:
@@ -79,10 +79,11 @@ public class Worker : Entity
                 break;
         }
 
-        // If the task is unavailable for some reason, abort.
+        // If the task is unavailable for some reason, abort and get a new task.
         if (currentTask.state == Task.State.Unavailable)
         {
             Debug.LogError("Task is unavailable");
+            TaskManager.instance.GetNewTask(this);
             return;
         }
 
@@ -94,5 +95,16 @@ public class Worker : Entity
 
         // Actually starts the task.
         currentTask.StartTask(this);
+    }
+
+    // If a worker dies it gets destroyed.
+    // To prevent a null reference exception we check if that worker has been selected by the player.
+    // If it is then deselect it first before destroying the worker.
+    private void OnDestroy()
+    {
+        if (UIManager.selectedWorker == this)
+        {
+            UIManager.instance.DeselectWorker();
+        }
     }
 }

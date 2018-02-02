@@ -18,6 +18,7 @@ public class Action_GetResources : BaseAction
     {
         base.DoAction(worker);
 
+        // Tells the worker to move to a certain position.
         worker.agent.SetDestination(destination.position);
     }
 
@@ -46,6 +47,7 @@ public class Action_GetResources : BaseAction
             ResourceManager.instance.inventory.RemoveSpecificItem(resourcesToGet[i].itemName, resourcesToGet[i].quantity);
         }
 
+        // Updates the UI that shows how much resources we have.
         UIManager.instance.UpdateResourcePanel();
     }
 }
